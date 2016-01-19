@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.succinctest.ebbinghaus.dao.ContentDao">
+	<resultMap id="content" type="com.succinctest.ebbinghaus.po.Content">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="catalogId" property="catalogId" />
+		<result column="url" property="url" />
+	</resultMap>
+	<resultMap id="contentVo" type="com.succinctest.ebbinghaus.vo.ContentVo">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="catalogId" property="catalogId" />
+		<result column="url" property="url" />
+		<result column="catalogName" property="catalogName" />
+	</resultMap>
+	<insert id="save" keyColumn="id" keyProperty="id"
+		useGeneratedKeys="true" parameterType="com.succinctest.ebbinghaus.po.Content">
+		insert into
+		content(name,catalogId,url) values(#{name},#{catalogId},#{url})
+	</insert>
+	<select id="getNeedReviewContent" parameterType="java.util.Map" resultMap="contentVo">
+		select c.*,l.name as catalogName from
+		content c,catalog l,learnInfo li where li.resourceType = #{resourceType} 
+		and li.nextLearnDate &gt; #{startDate} and li.nextLearnDate &lt; #{endDate} 
+		and c.catalogId = l.id and c.id = li.resourceId
+	</select>
+</mapper>

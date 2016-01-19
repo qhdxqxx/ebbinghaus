@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.succinctest.ebbinghaus.dao.LearnDetailDao">
+	<resultMap id="learnDetail" type="com.succinctest.ebbinghaus.po.LearnDetail">
+		<id column="id" property="id" />
+		<result column="learnInfoId" property="learnInfoId" />
+		<result column="learnTime" property="learnTime" />
+		<result column="learnDate" property="learnDate" />
+		<result column="learnStatus" property="learnStatus" />
+	</resultMap>
+	<insert id="save" keyColumn="id" keyProperty="id"
+		useGeneratedKeys="true" parameterType="com.succinctest.ebbinghaus.po.LearnDetail">
+		insert into
+		learndetail(learnInfoId,learnTime,learnDate,learnStatus,learnInfoStep)
+		values(#{learnInfoId},#{learnTime},#{learnDate},#{learnStatus},#{learnInfoStep})
+	</insert>
+</mapper>

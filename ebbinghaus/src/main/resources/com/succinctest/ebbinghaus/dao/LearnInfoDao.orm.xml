@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.succinctest.ebbinghaus.dao.LearnInfoDao">
+	<resultMap id="learnInfo" type="com.succinctest.ebbinghaus.po.LearnInfo">
+		<id column="id" property="id" />
+		<result column="userId" property="userId" />
+		<result column="resourceId" property="resourceId" />
+		<result column="step" property="step" />
+		<result column="startTime" property="startTime" />
+		<result column="lastLearnDate" property="lastLearnDate" />
+		<result column="nextLearnDate" property="nextLearnDate" />
+		<result column="resourceType" property="resourceType" />
+	</resultMap>
+	<insert id="save" keyColumn="id" keyProperty="id"
+		useGeneratedKeys="true" parameterType="com.succinctest.ebbinghaus.po.LearnInfo">
+		insert into
+		learninfo(userId,resourceId,step,startTime,startDate,lastLearnDate,nextLearnDate,resourceType)
+		values(#{userId},#{resourceId},#{step},#{startTime},#{startDate},#{lastLearnDate},#{nextLearnDate},#{resourceType})
+	</insert>
+	
+	<select id="getLearnInfoById" parameterType="java.lang.Long" resultMap="learnInfo">
+		select * from learninfo where id = #{id}
+	</select>
+	
+	<update id="updateLearnInfo" parameterType="com.succinctest.ebbinghaus.po.LearnInfo">
+		update learninfo set id = #{id}
+		<if test="userId != null">
+			,userId = #{userId}
+		</if>
+		<if test="resourceId != null">
+			,resourceId = #{resourceId}
+		</if>
+		
+		<if test="step != null">
+			,step = #{step}
+		</if>
+		<if test="startTime != null">
+			,startTime = #{startTime}
+		</if>
+		<if test="startDate != null">
+			,startDate = #{startDate}
+		</if>
+		<if test="lastLearnDate != null">
+			,lastLearnDate = #{lastLearnDate}
+		</if>
+		<if test="nextLearnDate != null">
+			,nextLearnDate = #{nextLearnDate}
+		</if>
+		<if test="resourceType != null">
+			,resourceType = #{resourceType}
+		</if>
+		where id = #{id}
+	</update>
+</mapper>
